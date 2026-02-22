@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X } from "lucide-react";
+import { Menu, X, Brain, Zap } from "lucide-react";
+import MagneticButton from "./ui/MagneticButton";
 
 const links = [
   { label: "Skills", href: "#skills" },
@@ -9,9 +10,31 @@ const links = [
   { label: "Contact", href: "#contact" },
 ];
 
+const NavLink = ({ label, href }: { label: string; href: string }) => {
+  const [hovered, setHovered] = useState(false);
+
+  return (
+    <a
+      href={href}
+      className="relative text-sm font-semibold text-muted-foreground hover:text-orange-300 transition-colors duration-300 py-1"
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
+    >
+      {label}
+      <motion.span
+        className="absolute -bottom-0.5 left-0 h-[2px] rounded-full bg-gradient-to-r from-orange-400 to-rose-400"
+        initial={{ width: 0 }}
+        animate={{ width: hovered ? "100%" : 0 }}
+        transition={{ duration: 0.3, ease: "easeOut" }}
+      />
+    </a>
+  );
+};
+
 const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [isLogoHovered, setIsLogoHovered] = useState(false);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 50);
@@ -22,42 +45,86 @@ const Navbar = () => {
   return (
     <>
       <motion.nav
-        initial={{ y: -20, opacity: 0 }}
+        initial={{ y: -30, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
-        transition={{ duration: 0.5 }}
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-          scrolled ? "bg-background/80 backdrop-blur-xl border-b border-border" : ""
-        }`}
+        transition={{ duration: 0.6, ease: "easeOut" }}
+        className="fixed top-0 left-0 right-0 z-50"
       >
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
-          <a href="#" className="font-mono font-bold text-primary text-sm tracking-wider">
-            {"<YN />"}
-          </a>
-          <div className="hidden md:flex items-center gap-8">
-            {links.map((link) => (
-              <a
-                key={link.label}
-                href={link.href}
-                className="text-sm text-muted-foreground hover:text-foreground transition-colors font-medium"
-              >
-                {link.label}
-              </a>
-            ))}
-          </div>
-          <div className="flex items-center gap-3">
+        <div
+          className={`mx-auto transition-all duration-700 ease-out ${
+            scrolled
+              ? "max-w-5xl mt-3 mx-3 sm:mx-auto rounded-2xl glass-strong shadow-2xl"
+              : "max-w-6xl"
+          }`}
+        >
+          <div className="px-5 sm:px-6 h-14 flex items-center justify-between">
+            {/* Logo */}
             <a
-              href="#contact"
-              className="hidden sm:inline-flex px-4 py-2 rounded-lg btn-gradient text-xs font-semibold"
+              href="#"
+              className="flex items-center group relative"
+              onMouseEnter={() => setIsLogoHovered(true)}
+              onMouseLeave={() => setIsLogoHovered(false)}
             >
-              Hire Me
+              <div className="relative flex items-center justify-center w-10 h-10">
+                <Brain
+                  size={30}
+                  className={`transition-all duration-500 absolute ${
+                    isLogoHovered
+                      ? "text-blue-400 scale-115 drop-shadow-[0_0_12px_rgba(96,165,250,0.9)]"
+                      : "text-blue-500/70"
+                  }`}
+                />
+                <AnimatePresence>
+                  {isLogoHovered && (
+                    <>
+                      <motion.div
+                        initial={{ opacity: 0, scale: 0.3 }}
+                        animate={{ opacity: 1, scale: 1.5 }}
+                        exit={{ opacity: 0, scale: 0.3 }}
+                        transition={{ duration: 0.3 }}
+                        className="absolute inset-0 bg-blue-400/15 blur-xl rounded-full"
+                      />
+                      <motion.div
+                        initial={{ opacity: 0 }}
+                        animate={{
+                          opacity: [0, 1, 0.3, 1, 0],
+                          y: [-4, 4, -2, 6, 0],
+                          x: [1, -2, 3, -1, 0],
+                        }}
+                        transition={{ duration: 0.5, repeat: Infinity, repeatType: "mirror" }}
+                        className="absolute text-blue-300"
+                      >
+                        <Zap size={14} fill="currentColor" />
+                      </motion.div>
+                    </>
+                  )}
+                </AnimatePresence>
+              </div>
             </a>
-            <button
-              onClick={() => setMobileOpen(!mobileOpen)}
-              className="md:hidden p-2 text-muted-foreground hover:text-foreground transition-colors"
-              aria-label="Toggle menu"
-            >
-              {mobileOpen ? <X size={22} /> : <Menu size={22} />}
-            </button>
+
+            {/* Desktop links */}
+            <div className="hidden md:flex items-center gap-7">
+              {links.map((link) => (
+                <NavLink key={link.label} label={link.label} href={link.href} />
+              ))}
+            </div>
+
+            {/* Right side */}
+            <div className="flex items-center gap-3">
+              <MagneticButton
+                href="#contact"
+                className="hidden sm:inline-flex px-5 py-2 rounded-xl btn-gradient text-xs font-bold shadow-lg shadow-primary/20"
+              >
+                Hire Me
+              </MagneticButton>
+              <button
+                onClick={() => setMobileOpen(!mobileOpen)}
+                className="md:hidden p-2 text-muted-foreground hover:text-orange-300 transition-colors"
+                aria-label="Toggle menu"
+              >
+                {mobileOpen ? <X size={22} /> : <Menu size={22} />}
+              </button>
+            </div>
           </div>
         </div>
       </motion.nav>
@@ -66,27 +133,30 @@ const Navbar = () => {
       <AnimatePresence>
         {mobileOpen && (
           <motion.div
-            initial={{ opacity: 0, y: -10 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -10 }}
-            transition={{ duration: 0.2 }}
-            className="fixed top-16 left-0 right-0 z-40 bg-background/95 backdrop-blur-xl border-b border-border p-6 md:hidden"
+            initial={{ opacity: 0, y: -10, scale: 0.98 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: -10, scale: 0.98 }}
+            transition={{ duration: 0.25, ease: "easeOut" }}
+            className="fixed top-16 left-3 right-3 z-40 glass-strong rounded-2xl p-6 md:hidden"
           >
             <div className="flex flex-col gap-4">
-              {links.map((link) => (
-                <a
+              {links.map((link, i) => (
+                <motion.a
                   key={link.label}
                   href={link.href}
                   onClick={() => setMobileOpen(false)}
-                  className="text-lg text-muted-foreground hover:text-foreground transition-colors font-medium"
+                  initial={{ opacity: 0, x: -15 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: i * 0.06 }}
+                  className="text-lg text-muted-foreground hover:text-orange-300 transition-colors font-semibold"
                 >
                   {link.label}
-                </a>
+                </motion.a>
               ))}
               <a
                 href="#contact"
                 onClick={() => setMobileOpen(false)}
-                className="inline-flex items-center justify-center px-6 py-3 rounded-lg btn-gradient text-sm font-semibold mt-2"
+                className="inline-flex items-center justify-center px-6 py-3 rounded-xl btn-gradient text-sm font-bold mt-2"
               >
                 Hire Me
               </a>

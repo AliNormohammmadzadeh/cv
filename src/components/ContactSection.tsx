@@ -1,53 +1,132 @@
-import { motion } from "framer-motion";
-import { Send, Coffee, Handshake } from "lucide-react";
+import { Send, Mail, MessageSquare, SendHorizontal } from "lucide-react";
+import MagneticButton from "./ui/MagneticButton";
 
 const ContactSection = () => {
   return (
-    <section id="contact" className="py-20 sm:py-32 px-4 sm:px-6 relative">
-      <div className="absolute inset-0 bg-gradient-to-t from-primary/[0.04] to-transparent" />
-      <div className="max-w-3xl mx-auto text-center relative z-10">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-        >
-          <Handshake size={36} className="text-primary mx-auto mb-6" />
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight mb-4 sm:mb-6">
-            Let's Build <span className="text-gradient">Something Great</span>
-          </h2>
-          <p className="text-base sm:text-lg text-muted-foreground mb-8 sm:mb-10 leading-relaxed px-2">
-            I'm actively looking for a co-founder who shares the ambition to build world-class products. 
-            If you're a visionary with complementary skills, let's talk.
-          </p>
+    <section id="contact" className="py-20 sm:py-32 px-4 sm:px-6 relative overflow-hidden">
+      <div className="max-w-6xl mx-auto relative z-10">
+        <div className="grid lg:grid-cols-2 gap-12 items-center">
+          {/* Left side */}
+          <div className="scroll-slide-left">
+            <p className="font-mono text-primary text-sm tracking-widest uppercase mb-4">
+              Get In Touch
+            </p>
+            <h2 className="text-4xl sm:text-6xl font-black tracking-tight mb-6 leading-[1.1]">
+              Ready to start your{" "}
+              <span className="text-gradient">next project?</span>
+            </h2>
+            <p className="text-lg text-muted-foreground mb-8 max-w-lg leading-relaxed">
+              Whether you have a specific idea or just want to explore
+              possibilities, I'm always open to discussing new opportunities and
+              collaborations.
+            </p>
 
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4">
-            <a
-              href="mailto:your@email.com"
-              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-3.5 rounded-xl btn-gradient font-semibold text-sm"
-            >
-              <Send size={16} />
-              Get in Touch
-            </a>
-            <a
-              href="#"
-              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-3.5 rounded-xl border-glow bg-secondary text-secondary-foreground font-semibold text-sm hover:bg-surface-hover transition-all"
-            >
-              <Coffee size={16} />
-              Book a Coffee Chat
-            </a>
+            <div className="space-y-5">
+              <div className="flex items-center gap-4 group">
+                <div className="w-12 h-12 rounded-xl glass flex items-center justify-center group-hover:border-primary/30 transition-[border-color] duration-300">
+                  <Mail className="text-primary" size={20} />
+                </div>
+                <div>
+                  <p className="text-xs font-mono text-muted-foreground uppercase tracking-wider">
+                    Email Me
+                  </p>
+                  <a
+                    href="mailto:alinormohammadzadeh2080@gmail.com"
+                    className="text-sm font-semibold hover:text-primary transition-colors"
+                  >
+                    alinormohammadzadeh2080@gmail.com
+                  </a>
+                </div>
+              </div>
+              <div className="flex items-center gap-4 group">
+                <div className="w-12 h-12 rounded-xl glass flex items-center justify-center group-hover:border-primary/30 transition-[border-color] duration-300">
+                  <SendHorizontal className="text-primary" size={20} />
+                </div>
+                <div>
+                  <p className="text-xs font-mono text-muted-foreground uppercase tracking-wider">
+                    Telegram
+                  </p>
+                  <a
+                    href="https://t.me/Alind2n"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-sm font-semibold hover:text-primary transition-colors"
+                  >
+                    @Alind2n
+                  </a>
+                </div>
+              </div>
+              <div className="flex items-center gap-4 group">
+                <div className="w-12 h-12 rounded-xl glass flex items-center justify-center group-hover:border-primary/30 transition-[border-color] duration-300">
+                  <MessageSquare className="text-primary" size={20} />
+                </div>
+                <div>
+                  <p className="text-xs font-mono text-muted-foreground uppercase tracking-wider">
+                    Let's Chat
+                  </p>
+                  <p className="text-lg font-semibold">Available for new projects</p>
+                </div>
+              </div>
+            </div>
           </div>
-        </motion.div>
 
-        <motion.p
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          transition={{ delay: 0.4, duration: 0.6 }}
-          className="mt-16 sm:mt-20 text-xs text-muted-foreground font-mono"
-        >
-          © 2026 · Built with passion & too much coffee
-        </motion.p>
+          {/* Right side — glass contact form */}
+          <div className="scroll-slide-right relative">
+            <div className="absolute -inset-4 bg-gradient-to-br from-primary/15 to-blue-500/15 blur-3xl rounded-3xl -z-10" />
+            <div className="glass-strong p-8 sm:p-10 rounded-3xl">
+              <form className="space-y-5" onSubmit={(e) => e.preventDefault()}>
+                <div className="grid sm:grid-cols-2 gap-5">
+                  <div className="space-y-2">
+                    <label className="text-xs font-mono text-muted-foreground uppercase ml-1">
+                      Name
+                    </label>
+                    <input
+                      type="text"
+                      placeholder="John Doe"
+                      className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-primary/40 focus:border-primary/30 transition-all placeholder:text-muted-foreground/50"
+                    />
+                  </div>
+                  <div className="space-y-2">
+                    <label className="text-xs font-mono text-muted-foreground uppercase ml-1">
+                      Email
+                    </label>
+                    <input
+                      type="email"
+                      placeholder="john@example.com"
+                      className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-primary/40 focus:border-primary/30 transition-all placeholder:text-muted-foreground/50"
+                    />
+                  </div>
+                </div>
+                <div className="space-y-2">
+                  <label className="text-xs font-mono text-muted-foreground uppercase ml-1">
+                    Message
+                  </label>
+                  <textarea
+                    rows={4}
+                    placeholder="Tell me about your project..."
+                    className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-primary/40 focus:border-primary/30 transition-all resize-none placeholder:text-muted-foreground/50"
+                  />
+                </div>
+                
+                {/* CHANGED: Wrapped in a div, removed redundant flex classes since MagneticButton handles them now */}
+                <div className="w-full pt-2">
+                  <MagneticButton
+                    type="submit"
+                    className="btn-gradient py-4 rounded-xl font-bold group"
+                  >
+                    {/* CHANGED: Added whitespace-nowrap to prevent text wrapping */}
+                    <span className="whitespace-nowrap">Send Message</span>
+                    <Send
+                      size={18}
+                      className="group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform"
+                    />
+                  </MagneticButton>
+                </div>
+
+              </form>
+            </div>
+          </div>
+        </div>
       </div>
     </section>
   );

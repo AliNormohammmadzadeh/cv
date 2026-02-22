@@ -1,16 +1,14 @@
 import { motion } from "framer-motion";
 import { ArrowDown, Github, Linkedin, Mail } from "lucide-react";
+import { useState } from "react";
+import MagneticButton from "./ui/MagneticButton";
 
 const HeroSection = () => {
+  const [isHovered, setIsHovered] = useState(false);
+
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden noise-bg">
-      {/* Grid background */}
-      <div className="absolute inset-0 grid-bg opacity-30" />
-      
-      {/* Animated blobs */}
-      <div className="absolute top-1/4 left-1/4 w-[500px] h-[500px] md:w-[700px] md:h-[700px] rounded-full blob-orange" />
-      <div className="absolute bottom-1/4 right-1/4 w-[400px] h-[400px] md:w-[600px] md:h-[600px] rounded-full blob-amber" />
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] h-[300px] md:w-[500px] md:h-[500px] rounded-full blob-rose" />
+    <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
+      <div className="absolute inset-0 grid-bg opacity-15" />
 
       <div className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 text-center pt-20 md:pt-0">
         <motion.div
@@ -18,8 +16,8 @@ const HeroSection = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, ease: "easeOut" }}
         >
-          <p className="font-mono text-primary text-xs sm:text-sm tracking-widest uppercase mb-4 sm:mb-6">
-            Software Engineer · Builder · Maker
+          <p className="font-mono warm-subtitle text-sm sm:text-base tracking-widest uppercase mb-4 sm:mb-6 font-semibold">
+            Software Engineer · Product Builder · Tech Enthusiast
           </p>
         </motion.div>
 
@@ -27,10 +25,31 @@ const HeroSection = () => {
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.15, ease: "easeOut" }}
-          className="text-4xl sm:text-6xl md:text-8xl font-black tracking-tight mb-4 sm:mb-6"
+          className="text-4xl sm:text-6xl md:text-8xl font-black tracking-tight mb-4 sm:mb-6 cursor-default"
+          onMouseEnter={() => setIsHovered(true)}
+          onMouseLeave={() => setIsHovered(false)}
         >
           <span className="text-foreground">Hi, I'm </span>
-          <span className="text-gradient">[Your Name]</span>
+          <span className="text-gradient inline-flex flex-wrap justify-center items-baseline">
+            <span>Ali</span>
+            <motion.span
+              initial={{ width: 0, opacity: 0, x: -10 }}
+              animate={{
+                width: isHovered ? "auto" : 0,
+                opacity: isHovered ? 1 : 0,
+                x: isHovered ? 0 : -10,
+                marginLeft: isHovered ? "0.75rem" : 0,
+              }}
+              transition={{
+                duration: 0.6,
+                ease: [0.23, 1, 0.32, 1],
+                opacity: { duration: 0.4 },
+              }}
+              className="overflow-hidden whitespace-nowrap text-2xl sm:text-4xl md:text-5xl font-bold text-muted-foreground/80"
+            >
+              Normohammadzadeh
+            </motion.span>
+          </span>
         </motion.h1>
 
         <motion.p
@@ -39,46 +58,47 @@ const HeroSection = () => {
           transition={{ duration: 0.8, delay: 0.3, ease: "easeOut" }}
           className="text-base sm:text-xl md:text-2xl text-muted-foreground max-w-2xl mx-auto mb-8 sm:mb-10 font-light leading-relaxed px-2"
         >
-          I architect <span className="text-foreground font-medium">scalable systems</span> and ship{" "}
-          <span className="text-foreground font-medium">products that matter</span>. 
-          Looking for the right co-founder to build the next big thing.
+          I architect{" "}
+          <span className="text-foreground font-medium">robust software solutions</span> and
+          leverage <span className="text-foreground font-medium">AI & RAG</span> to build
+          intelligent, scalable products.
         </motion.p>
 
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.5 }}
-          className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 mb-12 sm:mb-16"
+          className="flex flex-col sm:flex-row items-center justify-center gap-5 mb-12 sm:mb-16"
         >
-          <a
+          <MagneticButton
             href="#contact"
-            className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-3.5 rounded-xl btn-gradient font-semibold text-sm"
+            className="px-10 py-4 rounded-2xl btn-gradient font-bold text-base shadow-lg shadow-primary/25"
           >
             Let's Build Together
-          </a>
-          <a
+          </MagneticButton>
+          <MagneticButton
             href="#projects"
-            className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-3.5 rounded-xl border-glow bg-secondary text-secondary-foreground font-semibold text-sm hover:bg-surface-hover transition-all"
+            className="px-10 py-4 rounded-2xl glass text-foreground font-bold text-base hover:bg-white/10 transition-colors"
           >
             See My Work
-          </a>
+          </MagneticButton>
         </motion.div>
 
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.7, duration: 0.6 }}
-          className="flex items-center justify-center gap-4 sm:gap-6"
+          className="flex items-center justify-center gap-4 sm:gap-5"
         >
           {[
             { icon: Github, href: "#", label: "GitHub" },
-            { icon: Linkedin, href: "#", label: "LinkedIn" },
             { icon: Mail, href: "#", label: "Email" },
+            { icon: Linkedin, href: "#", label: "LinkedIn" },
           ].map(({ icon: Icon, href, label }) => (
             <a
               key={label}
               href={href}
-              className="p-3 rounded-xl bg-secondary/50 text-muted-foreground hover:text-primary hover:bg-secondary transition-all"
+              className="p-3 rounded-xl glass text-muted-foreground hover:text-primary hover:border-primary/30 transition-all duration-300"
               aria-label={label}
             >
               <Icon size={20} />
@@ -90,7 +110,7 @@ const HeroSection = () => {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 1.2, duration: 0.6 }}
-          className="absolute bottom-8 left-1/2 -translate-x-1/2"
+          className="absolute bottom-12 left-1/2 -translate-x-1/2"
         >
           <ArrowDown size={20} className="text-muted-foreground animate-bounce" />
         </motion.div>
