@@ -277,6 +277,67 @@
     perspective: 1000px;
   }
 
+  .preserve-3d {
+    transform-style: preserve-3d;
+  }
+
+  .backface-hidden {
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+  }
+
+  .rotate-x-180 {
+    transform: rotateX(180deg);
+  }
+
+  .rotate-y-180 {
+    transform: rotateY(180deg);
+  }
+
+  .gold-text-flow {
+    @apply bg-clip-text text-transparent;
+    background-image: linear-gradient(
+      -90deg,
+      #b8860b,
+      #ffd700,
+      #fff8dc,
+      #ffd700,
+      #b8860b
+    );
+    background-size: 300% auto;
+    animation: gold-flow 4s linear infinite;
+  }
+
+  @keyframes gold-flow {
+    0% { background-position: 300% center; }
+    100% { background-position: 0% center; }
+  }
+
+  .silver-shine {
+    position: relative;
+    overflow: hidden;
+  }
+  .silver-shine::after {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(
+      45deg,
+      transparent,
+      rgba(255, 255, 255, 0.1),
+      transparent
+    );
+    transform: rotate(45deg);
+    animation: silver-sweep 3s infinite;
+  }
+  @keyframes silver-sweep {
+    0% { transform: translateX(-100%) rotate(45deg); }
+    100% { transform: translateX(100%) rotate(45deg); }
+  }
+
   /* ═══════════════════════════════════════════
      SCROLL-DRIVEN REVEAL ANIMATION
      ═══════════════════════════════════════════ */

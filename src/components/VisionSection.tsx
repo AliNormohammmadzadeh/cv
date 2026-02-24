@@ -27,11 +27,11 @@ const VisionSection = () => {
   return (
     <section
       id="vision"
-      className="py-12 sm:py-20 px-4 sm:px-6 relative"
+      className="py-8 sm:py-12 px-4 sm:px-6 relative"
       style={{ background: "linear-gradient(180deg, hsl(220 50% 12%) 0%, hsl(250 50% 12%) 100%)" }}
     >
       <div className="max-w-6xl mx-auto relative z-10">
-        <div className="scroll-reveal mb-8 sm:mb-12">
+        <div className="scroll-reveal mb-6 sm:mb-8">
           <p className="font-mono text-primary text-xs sm:text-sm tracking-widest uppercase mb-3">
             Where I'm Headed
           </p>

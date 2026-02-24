@@ -117,11 +117,11 @@ const SkillsSection = () => {
   return (
     <section
       id="skills"
-      className="py-12 sm:py-20 px-4 sm:px-6 relative"
+      className="py-8 sm:py-12 px-4 sm:px-6 relative"
       style={{ background: "linear-gradient(180deg, hsl(270 50% 12%) 0%, hsl(220 50% 12%) 100%)" }}
     >
       <div className="max-w-6xl mx-auto">
-        <div className="scroll-reveal mb-8 sm:mb-12">
+        <div className="scroll-reveal mb-6 sm:mb-8">
           <p className="font-mono text-primary text-xs sm:text-sm tracking-widest uppercase mb-3">
             What I Do
           </p>

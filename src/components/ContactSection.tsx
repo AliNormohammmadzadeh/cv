@@ -29,7 +29,7 @@ const ContactSection = () => {
   return (
     <section
       id="contact"
-      className="py-12 sm:py-20 px-4 sm:px-6 relative overflow-hidden"
+      className="py-8 sm:py-12 px-4 sm:px-6 relative overflow-hidden"
       style={{ background: "linear-gradient(180deg, hsl(280 50% 12%) 0%, hsl(250 15% 5%) 100%)" }}
     >
       <div className="max-w-6xl mx-auto relative z-10">
@@ -113,7 +113,7 @@ const ContactSection = () => {
                       required
                       value={formData.name}
                       onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                      placeholder="John Doe"
+                      placeholder="Say You Name"
                       className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-primary/40 focus:border-primary/30 transition-all placeholder:text-muted-foreground/50"
                     />
                   </div>
@@ -126,7 +126,7 @@ const ContactSection = () => {
                       required
                       value={formData.email}
                       onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                      placeholder="john@example.com"
+                      placeholder="your@gmail.com"
                       className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-primary/40 focus:border-primary/30 transition-all placeholder:text-muted-foreground/50"
                     />
                   </div>
