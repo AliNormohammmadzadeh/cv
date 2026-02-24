@@ -8,6 +8,7 @@ interface MagneticButtonProps {
   type?: "button" | "submit" | "reset";
   href?: string;
   fullWidth?: boolean;
+  disabled?: boolean;
 }
 
 const MagneticButton: React.FC<MagneticButtonProps> = ({
@@ -17,12 +18,13 @@ const MagneticButton: React.FC<MagneticButtonProps> = ({
   type = "button",
   href,
   fullWidth = false,
+  disabled = false,
 }) => {
   const ref = useRef<HTMLDivElement>(null);
   const [position, setPosition] = useState({ x: 0, y: 0 });
 
   const handleMouseMove = (e: React.MouseEvent) => {
-    if (!ref.current) return;
+    if (!ref.current || disabled) return;
     const { clientX, clientY } = e;
     const { left, top, width, height } = ref.current.getBoundingClientRect();
     const x = clientX - (left + width / 2);
@@ -48,7 +50,8 @@ const MagneticButton: React.FC<MagneticButtonProps> = ({
       <button
         type={type}
         onClick={onClick}
-        className={`relative overflow-hidden group ${fullWidth ? "w-full" : ""} ${className}`}
+        disabled={disabled}
+        className={`relative overflow-hidden group ${fullWidth ? "w-full" : ""} ${className} ${disabled ? "opacity-70 cursor-not-allowed" : ""}`}
       >
         <span className="relative z-10 flex items-center justify-center gap-2 h-full">
           {children}

@@ -53,6 +53,13 @@
     scrollbar-width: none;
   }
 
+  /* Smooth scrolling for all browsers */
+  @media (prefers-reduced-motion: no-preference) {
+    :root {
+      scroll-behavior: smooth;
+    }
+  }
+
   html::-webkit-scrollbar {
     display: none;
   }

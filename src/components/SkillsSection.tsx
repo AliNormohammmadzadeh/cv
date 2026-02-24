@@ -3,9 +3,9 @@ import { Code2, Server, Cloud, Database, Brain, GitBranch } from "lucide-react";
 
 const skillCategories = [
   {
-    icon: Brain,
-    title: "AI & LLMs",
-    skills: ["OpenAI", "Gemini", "Anthropic", "Ollama", "Hugging Face", "LangChain", "LlamaIndex"],
+    icon: Server,
+    title: "Backend",
+    skills: ["Node.js", "NestJS", "Python", "GO" , "FastAPI", "REST", "GraphQL", "gRPC"],
   },
   {
     icon: Database,
@@ -18,9 +18,9 @@ const skillCategories = [
     skills: ["React", "TypeScript", "Next.js", "Tailwind CSS", "Framer Motion", "Vite"],
   },
   {
-    icon: Server,
-    title: "Backend",
-    skills: ["Node.js", "NestJS", "Python", "FastAPI", "REST", "GraphQL", "GO"],
+    icon: Brain,
+    title: "AI & LLMs",
+    skills: ["OpenAI", "Gemini", "Anthropic", "Ollama", "Hugging Face", "LangChain", "LlamaIndex"],
   },
   {
     icon: Cloud,
@@ -29,7 +29,7 @@ const skillCategories = [
   },
   {
     icon: GitBranch,
-    title: "Data & Tools",
+    title: "DBs & Tools",
     skills: ["PostgreSQL", "MongoDB", "Redis", "Kafka", "RabbitMQ", "Prisma", "ClickHouse"],
   },
 ];
@@ -117,11 +117,11 @@ const SkillsSection = () => {
   return (
     <section
       id="skills"
-      className="py-20 sm:py-32 px-4 sm:px-6 relative"
-      style={{ background: "linear-gradient(180deg, hsl(270 30% 8% / 0.7) 0%, hsl(260 25% 6% / 0.5) 50%, hsl(250 20% 7% / 0.6) 100%)" }}
+      className="py-12 sm:py-20 px-4 sm:px-6 relative"
+      style={{ background: "linear-gradient(180deg, hsl(270 50% 12%) 0%, hsl(220 50% 12%) 100%)" }}
     >
       <div className="max-w-6xl mx-auto">
-        <div className="scroll-reveal mb-12 sm:mb-20">
+        <div className="scroll-reveal mb-8 sm:mb-12">
           <p className="font-mono text-primary text-xs sm:text-sm tracking-widest uppercase mb-3">
             What I Do
           </p>

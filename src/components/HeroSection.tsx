@@ -13,8 +13,9 @@ const HeroSection = () => {
   const [isHovered, setIsHovered] = useState(false);
 
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
+    <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-background">
       <div className="absolute inset-0 grid-bg opacity-15" />
+      <div className="absolute inset-0 bg-gradient-to-b from-transparent to-[hsl(270,50%,12%)]" />
 
       <div className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 text-center pt-20 md:pt-0">
         <motion.div
