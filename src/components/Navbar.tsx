@@ -58,9 +58,7 @@ const Navbar = () => {
         >
           <div className="px-5 sm:px-6 h-14 flex items-center justify-between">
             <a
-              href="https://github.com/AliNormohammmadzadeh"
-              target="_blank"
-              rel="noopener noreferrer"
+              href="#"
               className="flex items-center group"
             >
               <div className="relative flex items-center justify-center w-10 h-10">
