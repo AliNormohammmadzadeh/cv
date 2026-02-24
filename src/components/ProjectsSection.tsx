@@ -29,7 +29,11 @@ const statusColors: Record<string, string> = {
 
 const ProjectsSection = () => {
   return (
-    <section id="projects" className="py-20 sm:py-32 px-4 sm:px-6">
+    <section
+      id="projects"
+      className="py-20 sm:py-32 px-4 sm:px-6"
+      style={{ background: "linear-gradient(180deg, hsl(250 30% 8% / 0.7) 0%, hsl(255 25% 7% / 0.5) 50%, hsl(260 20% 8% / 0.6) 100%)" }}
+    >
       <div className="max-w-6xl mx-auto">
         <div className="scroll-reveal mb-10 sm:mb-16">
           <p className="font-mono text-primary text-xs sm:text-sm tracking-widest uppercase mb-3">

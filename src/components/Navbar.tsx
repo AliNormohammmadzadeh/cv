@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X, Brain, Zap } from "lucide-react";
+import { Menu, X, Brain } from "lucide-react";
 import MagneticButton from "./ui/MagneticButton";
 
 const links = [
@@ -34,7 +34,6 @@ const NavLink = ({ label, href }: { label: string; href: string }) => {
 const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
-  const [isLogoHovered, setIsLogoHovered] = useState(false);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 50);
@@ -58,47 +57,17 @@ const Navbar = () => {
           }`}
         >
           <div className="px-5 sm:px-6 h-14 flex items-center justify-between">
-            {/* Logo */}
             <a
-              href="#"
-              className="flex items-center group relative"
-              onMouseEnter={() => setIsLogoHovered(true)}
-              onMouseLeave={() => setIsLogoHovered(false)}
+              href="https://github.com/AliNormohammmadzadeh"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center group"
             >
               <div className="relative flex items-center justify-center w-10 h-10">
                 <Brain
-                  size={30}
-                  className={`transition-all duration-500 absolute ${
-                    isLogoHovered
-                      ? "text-blue-400 scale-115 drop-shadow-[0_0_12px_rgba(96,165,250,0.9)]"
-                      : "text-blue-500/70"
-                  }`}
+                  size={28}
+                  className="text-primary transition-all duration-300 group-hover:scale-110 group-hover:drop-shadow-[0_0_10px_hsl(265_85%_65%/0.7)]"
                 />
-                <AnimatePresence>
-                  {isLogoHovered && (
-                    <>
-                      <motion.div
-                        initial={{ opacity: 0, scale: 0.3 }}
-                        animate={{ opacity: 1, scale: 1.5 }}
-                        exit={{ opacity: 0, scale: 0.3 }}
-                        transition={{ duration: 0.3 }}
-                        className="absolute inset-0 bg-blue-400/15 blur-xl rounded-full"
-                      />
-                      <motion.div
-                        initial={{ opacity: 0 }}
-                        animate={{
-                          opacity: [0, 1, 0.3, 1, 0],
-                          y: [-4, 4, -2, 6, 0],
-                          x: [1, -2, 3, -1, 0],
-                        }}
-                        transition={{ duration: 0.5, repeat: Infinity, repeatType: "mirror" }}
-                        className="absolute text-blue-300"
-                      >
-                        <Zap size={14} fill="currentColor" />
-                      </motion.div>
-                    </>
-                  )}
-                </AnimatePresence>
               </div>
             </a>
 

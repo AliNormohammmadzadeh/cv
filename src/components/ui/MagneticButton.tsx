@@ -7,14 +7,16 @@ interface MagneticButtonProps {
   onClick?: () => void;
   type?: "button" | "submit" | "reset";
   href?: string;
+  fullWidth?: boolean;
 }
 
-const MagneticButton: React.FC<MagneticButtonProps> = ({ 
-  children, 
-  className = "", 
-  onClick, 
+const MagneticButton: React.FC<MagneticButtonProps> = ({
+  children,
+  className = "",
+  onClick,
   type = "button",
-  href
+  href,
+  fullWidth = false,
 }) => {
   const ref = useRef<HTMLDivElement>(null);
   const [position, setPosition] = useState({ x: 0, y: 0 });
@@ -32,6 +34,8 @@ const MagneticButton: React.FC<MagneticButtonProps> = ({
     setPosition({ x: 0, y: 0 });
   };
 
+  const wrapClass = fullWidth ? "block w-full" : "inline-block";
+
   const content = (
     <motion.div
       ref={ref}
@@ -39,19 +43,17 @@ const MagneticButton: React.FC<MagneticButtonProps> = ({
       transition={{ type: "spring", stiffness: 150, damping: 15, mass: 0.1 }}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
-      // CHANGED: From "inline-block" to "block w-full" so it stretches to fit the form
-      className="block w-full" 
+      className={wrapClass}
     >
       <button
         type={type}
         onClick={onClick}
-        className={`relative overflow-hidden group w-full ${className}`}
+        className={`relative overflow-hidden group ${fullWidth ? "w-full" : ""} ${className}`}
       >
-        {/* CHANGED: Added flex, items-center, justify-center, gap-2, and w-full here so text and icon sit side-by-side */}
-        <span className="relative z-10 flex items-center justify-center gap-2 w-full h-full">
+        <span className="relative z-10 flex items-center justify-center gap-2 h-full">
           {children}
         </span>
-        <motion.div 
+        <motion.div
           className="absolute inset-0 bg-white/10 opacity-0 group-hover:opacity-100 transition-opacity"
           initial={false}
         />
@@ -61,7 +63,7 @@ const MagneticButton: React.FC<MagneticButtonProps> = ({
 
   if (href) {
     return (
-      <a href={href} className="w-full block">
+      <a href={href} className={wrapClass}>
         {content}
       </a>
     );

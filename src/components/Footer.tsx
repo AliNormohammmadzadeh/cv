@@ -1,5 +1,11 @@
 import { Github, Linkedin, Twitter } from "lucide-react";
 
+const footerLinks = [
+  { icon: Github, label: "GitHub", href: "https://github.com/AliNormohammmadzadeh" },
+  { icon: Linkedin, label: "LinkedIn", href: "https://www.linkedin.com/in/ali-normohammadzadeh-77495822a/" },
+  { icon: Twitter, label: "X / Twitter", href: "https://x.com/tebalen" },
+];
+
 const Footer = () => {
   return (
     <footer className="relative z-10 border-t border-white/5 py-8 px-4 sm:px-6">
@@ -8,15 +14,13 @@ const Footer = () => {
           © 2026 Ali Normohammadzadeh
         </p>
         <div className="flex gap-5">
-          {[
-            { icon: Github, label: "Github", href: "#" },
-            { icon: Linkedin, label: "LinkedIn", href: "#" },
-            { icon: Twitter, label: "Twitter", href: "#" },
-          ].map(({ icon: Icon, label, href }) => (
+          {footerLinks.map(({ icon: Icon, label, href }) => (
             <a
               key={label}
               href={href}
-              className="text-muted-foreground hover:text-primary transition-colors"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-foreground/70 hover:text-primary transition-colors"
               aria-label={label}
             >
               <Icon size={18} />

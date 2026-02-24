@@ -3,7 +3,11 @@ import MagneticButton from "./ui/MagneticButton";
 
 const ContactSection = () => {
   return (
-    <section id="contact" className="py-20 sm:py-32 px-4 sm:px-6 relative overflow-hidden">
+    <section
+      id="contact"
+      className="py-20 sm:py-32 px-4 sm:px-6 relative overflow-hidden"
+      style={{ background: "linear-gradient(180deg, hsl(280 30% 8% / 0.7) 0%, hsl(290 20% 7% / 0.5) 50%, hsl(300 15% 6% / 0.6) 100%)" }}
+    >
       <div className="max-w-6xl mx-auto relative z-10">
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           {/* Left side */}
@@ -107,14 +111,12 @@ const ContactSection = () => {
                     className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-primary/40 focus:border-primary/30 transition-all resize-none placeholder:text-muted-foreground/50"
                   />
                 </div>
-                
-                {/* CHANGED: Wrapped in a div, removed redundant flex classes since MagneticButton handles them now */}
                 <div className="w-full pt-2">
                   <MagneticButton
                     type="submit"
+                    fullWidth
                     className="btn-gradient py-4 rounded-xl font-bold group"
                   >
-                    {/* CHANGED: Added whitespace-nowrap to prevent text wrapping */}
                     <span className="whitespace-nowrap">Send Message</span>
                     <Send
                       size={18}

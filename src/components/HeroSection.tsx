@@ -1,7 +1,13 @@
 import { motion } from "framer-motion";
-import { ArrowDown, Github, Linkedin, Mail } from "lucide-react";
+import { ArrowDown, Github, Linkedin, Twitter } from "lucide-react";
 import { useState } from "react";
 import MagneticButton from "./ui/MagneticButton";
+
+const socialLinks = [
+  { icon: Github, href: "https://github.com/AliNormohammmadzadeh", label: "GitHub" },
+  { icon: Linkedin, href: "https://www.linkedin.com/in/ali-normohammadzadeh-77495822a/", label: "LinkedIn" },
+  { icon: Twitter, href: "https://x.com/tebalen", label: "X / Twitter" },
+];
 
 const HeroSection = () => {
   const [isHovered, setIsHovered] = useState(false);
@@ -21,36 +27,40 @@ const HeroSection = () => {
           </p>
         </motion.div>
 
-        <motion.h1
+        <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.15, ease: "easeOut" }}
-          className="text-4xl sm:text-6xl md:text-8xl font-black tracking-tight mb-4 sm:mb-6 cursor-default"
-          onMouseEnter={() => setIsHovered(true)}
-          onMouseLeave={() => setIsHovered(false)}
+          className="mb-4 sm:mb-6 min-h-[3.5rem] sm:min-h-[5rem] md:min-h-[7rem] flex items-center justify-center"
         >
-          <span className="text-foreground">Hi, I'm </span>
-          <span className="text-gradient inline-flex flex-wrap justify-center items-baseline">
-            <span>Ali</span>
-            <motion.span
-              initial={{ width: 0, opacity: 0, x: -10 }}
-              animate={{
-                width: isHovered ? "auto" : 0,
-                opacity: isHovered ? 1 : 0,
-                x: isHovered ? 0 : -10,
-                marginLeft: isHovered ? "0.75rem" : 0,
-              }}
-              transition={{
-                duration: 0.6,
-                ease: [0.23, 1, 0.32, 1],
-                opacity: { duration: 0.4 },
-              }}
-              className="overflow-hidden whitespace-nowrap text-2xl sm:text-4xl md:text-5xl font-bold text-muted-foreground/80"
-            >
-              Normohammadzadeh
-            </motion.span>
-          </span>
-        </motion.h1>
+          <h1
+            className="text-4xl sm:text-6xl md:text-8xl font-black tracking-tight cursor-default"
+            onMouseEnter={() => setIsHovered(true)}
+            onMouseLeave={() => setIsHovered(false)}
+          >
+            <span className="text-foreground">Hi, I'm </span>
+            <span className="text-gradient inline-flex items-baseline">
+              <span>Ali</span>
+              <motion.span
+                initial={{ width: 0, opacity: 0, x: -10 }}
+                animate={{
+                  width: isHovered ? "auto" : 0,
+                  opacity: isHovered ? 1 : 0,
+                  x: isHovered ? 0 : -10,
+                  marginLeft: isHovered ? "0.75rem" : 0,
+                }}
+                transition={{
+                  duration: 0.6,
+                  ease: [0.23, 1, 0.32, 1],
+                  opacity: { duration: 0.4 },
+                }}
+                className="overflow-hidden whitespace-nowrap text-2xl sm:text-4xl md:text-5xl font-bold text-muted-foreground/80"
+              >
+                Normohammadzadeh
+              </motion.span>
+            </span>
+          </h1>
+        </motion.div>
 
         <motion.p
           initial={{ opacity: 0, y: 30 }}
@@ -90,15 +100,13 @@ const HeroSection = () => {
           transition={{ delay: 0.7, duration: 0.6 }}
           className="flex items-center justify-center gap-4 sm:gap-5"
         >
-          {[
-            { icon: Github, href: "#", label: "GitHub" },
-            { icon: Mail, href: "#", label: "Email" },
-            { icon: Linkedin, href: "#", label: "LinkedIn" },
-          ].map(({ icon: Icon, href, label }) => (
+          {socialLinks.map(({ icon: Icon, href, label }) => (
             <a
               key={label}
               href={href}
-              className="p-3 rounded-xl glass text-muted-foreground hover:text-primary hover:border-primary/30 transition-all duration-300"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="p-3 rounded-xl glass text-foreground/80 hover:text-primary hover:border-primary/30 hover:scale-110 transition-all duration-300"
               aria-label={label}
             >
               <Icon size={20} />

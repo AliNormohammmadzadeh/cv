@@ -115,7 +115,11 @@ const SkillCard = ({
 
 const SkillsSection = () => {
   return (
-    <section id="skills" className="py-20 sm:py-32 px-4 sm:px-6 relative">
+    <section
+      id="skills"
+      className="py-20 sm:py-32 px-4 sm:px-6 relative"
+      style={{ background: "linear-gradient(180deg, hsl(270 30% 8% / 0.7) 0%, hsl(260 25% 6% / 0.5) 50%, hsl(250 20% 7% / 0.6) 100%)" }}
+    >
       <div className="max-w-6xl mx-auto">
         <div className="scroll-reveal mb-12 sm:mb-20">
           <p className="font-mono text-primary text-xs sm:text-sm tracking-widest uppercase mb-3">
