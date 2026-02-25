@@ -161,8 +161,7 @@ const VisionSection = () => {
             Why Leaders Choose Me
           </p>
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight mb-4">
-            My Engineering{" "}
-            <span className="text-gradient">Philosophy</span>
+            My Engineering <span className="text-gradient">Philosophy</span>
           </h2>
           <p className="text-muted-foreground text-sm sm:text-base max-w-2xl mx-auto leading-relaxed">
             I don't just write code — I architect solutions that ship fast, scale
