@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { ArrowDown, Github, Linkedin, Twitter } from "lucide-react";
+import { Github, Linkedin, Twitter, ChevronDown } from "lucide-react";
 import { useState } from "react";
 import MagneticButton from "./ui/MagneticButton";
 
@@ -119,9 +119,99 @@ const HeroSection = () => {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 1.2, duration: 0.6 }}
-          className="absolute bottom-12 left-1/2 -translate-x-1/2"
+          className="absolute bottom-6 left-1/2 -translate-x-1/2"
         >
-          <ArrowDown size={20} className="text-muted-foreground animate-bounce" />
+          <a
+            href="#skills"
+            className="flex flex-col items-center gap-2 group cursor-pointer"
+          >
+            <div className="relative w-12 h-12">
+              {/* Outer ring — slow clockwise */}
+              <motion.svg
+                className="absolute inset-0 w-full h-full"
+                viewBox="0 0 48 48"
+                animate={{ rotate: 360 }}
+                transition={{ duration: 8, repeat: Infinity, ease: "linear" }}
+              >
+                <defs>
+                  <linearGradient id="heroRing1" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" stopColor="hsl(265 85% 65%)" stopOpacity="0.6" />
+                    <stop offset="50%" stopColor="hsl(290 70% 60%)" stopOpacity="0.25" />
+                    <stop offset="100%" stopColor="hsl(320 75% 65%)" stopOpacity="0" />
+                  </linearGradient>
+                </defs>
+                <circle
+                  cx="24"
+                  cy="24"
+                  r="22"
+                  fill="none"
+                  stroke="url(#heroRing1)"
+                  strokeWidth="1.2"
+                  strokeLinecap="round"
+                  strokeDasharray="46 92"
+                />
+              </motion.svg>
+
+              {/* Inner ring — faster counter-clockwise */}
+              <motion.svg
+                className="absolute inset-[5px] w-[calc(100%-10px)] h-[calc(100%-10px)]"
+                viewBox="0 0 38 38"
+                animate={{ rotate: -360 }}
+                transition={{ duration: 5, repeat: Infinity, ease: "linear" }}
+              >
+                <defs>
+                  <linearGradient id="heroRing2" x1="100%" y1="0%" x2="0%" y2="100%">
+                    <stop offset="0%" stopColor="hsl(290 70% 60%)" stopOpacity="0.5" />
+                    <stop offset="100%" stopColor="hsl(265 85% 65%)" stopOpacity="0" />
+                  </linearGradient>
+                </defs>
+                <circle
+                  cx="19"
+                  cy="19"
+                  r="17"
+                  fill="none"
+                  stroke="url(#heroRing2)"
+                  strokeWidth="1"
+                  strokeLinecap="round"
+                  strokeDasharray="28 80"
+                />
+              </motion.svg>
+
+              {/* Orbiting dot */}
+              <motion.div
+                className="absolute inset-0"
+                animate={{ rotate: 360 }}
+                transition={{ duration: 6, repeat: Infinity, ease: "linear" }}
+              >
+                <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-[1px] w-[5px] h-[5px] rounded-full bg-primary/50 shadow-[0_0_8px_2px_hsl(265_85%_65%/0.4)]" />
+              </motion.div>
+
+              {/* Center chevron */}
+              <div className="absolute inset-0 flex items-center justify-center">
+                <motion.div
+                  animate={{ y: [0, 3, 0] }}
+                  transition={{
+                    duration: 1.8,
+                    repeat: Infinity,
+                    ease: "easeInOut",
+                  }}
+                >
+                  <ChevronDown
+                    size={16}
+                    strokeWidth={2.5}
+                    className="text-primary/50 group-hover:text-primary transition-colors duration-300"
+                  />
+                </motion.div>
+              </div>
+
+              {/* Hover glow */}
+              <div className="absolute -inset-2 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-500 bg-primary/[0.04] blur-md pointer-events-none" />
+            </div>
+
+            <span className="text-[9px] font-mono text-muted-foreground/20 uppercase tracking-[0.3em] group-hover:text-muted-foreground/50 transition-colors duration-300">
+              explore
+            </span>
+          </a>
         </motion.div>
       </div>
     </section>
