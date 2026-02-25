@@ -23,7 +23,7 @@ const HeroSection = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, ease: "easeOut" }}
         >
-          <p className="font-mono warm-subtitle text-sm sm:text-base tracking-widest uppercase mb-4 sm:mb-6 font-semibold">
+          <p className="font-mono warm-subtitle text-sm sm:text-base tracking-widest uppercase mb-4 sm:mb-6 md:mt-14 font-semibold">
             Software Engineer · Product Builder · Tech Enthusiast
           </p>
         </motion.div>
