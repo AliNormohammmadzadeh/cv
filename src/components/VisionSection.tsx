@@ -1,4 +1,5 @@
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
+import { useState } from "react";
 import {
   Brain,
   Layers,
@@ -10,6 +11,7 @@ import {
   ArrowRight,
   TrendingUp,
   Cpu,
+  Eye,
 } from "lucide-react";
 
 const principles = [
@@ -72,18 +74,75 @@ const buildingNext = [
     icon: Workflow,
     title: "AI Workflow Automation",
     desc: "Intelligent automation pipelines with n8n and custom AI agents that eliminate repetitive engineering tasks.",
+    num: "01",
+    gradient: "from-purple-500/10 via-transparent to-blue-500/10",
+    glowColor: "group-hover:shadow-purple-500/10",
   },
   {
     icon: Sparkles,
     title: "Developer-First AI Tools",
     desc: "API-first developer tools that integrate LLMs into existing workflows — amplifying engineers, not replacing them.",
+    num: "02",
+    gradient: "from-blue-500/10 via-transparent to-cyan-500/10",
+    glowColor: "group-hover:shadow-blue-500/10",
   },
   {
     icon: Shield,
     title: "Enterprise-Grade RAG",
     desc: "Production RAG systems with advanced retrieval, re-ranking, and guardrails for enterprise use cases.",
+    num: "03",
+    gradient: "from-pink-500/10 via-transparent to-purple-500/10",
+    glowColor: "group-hover:shadow-pink-500/10",
   },
 ];
+
+const MetricCard = ({ m }: { m: (typeof metrics)[0] }) => {
+  const [revealed, setRevealed] = useState(false);
+
+  return (
+    <div
+      className="text-center cursor-pointer select-none"
+      onMouseEnter={() => setRevealed(true)}
+      onMouseLeave={() => setRevealed(false)}
+    >
+      <div className="flex justify-center mb-3">
+        <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center transition-transform duration-300 hover:scale-110">
+          <m.icon size={20} className="text-primary" />
+        </div>
+      </div>
+      <div className="relative inline-flex items-center justify-center min-w-[4.5rem] min-h-[2.5rem]">
+        <motion.p
+          className="text-2xl sm:text-3xl font-black kinetic-text"
+          animate={{
+            filter: revealed ? "blur(0px)" : "blur(10px)",
+            scale: revealed ? 1 : 0.95,
+          }}
+          transition={{ duration: 0.4, ease: "easeOut" }}
+        >
+          {m.value}
+        </motion.p>
+        <AnimatePresence>
+          {!revealed && (
+            <motion.div
+              className="absolute inset-0 flex items-center justify-center rounded-xl"
+              initial={{ opacity: 1 }}
+              exit={{ opacity: 0, scale: 1.3, filter: "blur(4px)" }}
+              transition={{ duration: 0.35, ease: "easeOut" }}
+            >
+              <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg glass border border-white/10">
+                <Eye size={12} className="text-primary/60" />
+                <span className="text-[9px] font-mono text-primary/50 uppercase tracking-wider font-bold">
+                  hover
+                </span>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </div>
+      <p className="text-xs font-bold text-foreground/80 mt-1">{m.label}</p>
+    </div>
+  );
+};
 
 const VisionSection = () => {
   return (
@@ -167,20 +226,8 @@ const VisionSection = () => {
           className="scroll-reveal glass rounded-2xl p-6 sm:p-8 mb-12 sm:mb-16 border border-white/5"
         >
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6 sm:gap-8">
-            {metrics.map((m, i) => (
-              <div key={m.label} className="text-center group">
-                <div className="flex justify-center mb-3">
-                  <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-                    <m.icon size={20} className="text-primary" />
-                  </div>
-                </div>
-                <p className="text-2xl sm:text-3xl font-black kinetic-text mb-1">
-                  {m.value}
-                </p>
-                <p className="text-xs font-bold text-foreground/80">
-                  {m.label}
-                </p>
-              </div>
+            {metrics.map((m) => (
+              <MetricCard key={m.label} m={m} />
             ))}
           </div>
         </motion.div>
@@ -210,18 +257,41 @@ const VisionSection = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.4, delay: i * 0.1 }}
-              className="group p-5 sm:p-6 rounded-2xl glass hover:bg-white/[0.06] transition-all duration-500 border border-white/5 hover:border-primary/20"
+              className={`group relative p-6 sm:p-7 rounded-2xl overflow-hidden border border-white/[0.08] hover:border-primary/25 transition-all duration-500 shadow-lg shadow-black/20 ${item.glowColor} hover:shadow-xl cursor-default`}
+              style={{
+                background:
+                  "linear-gradient(135deg, hsl(var(--card) / 0.5), hsl(var(--card) / 0.3))",
+                backdropFilter: "blur(30px) saturate(1.6)",
+                WebkitBackdropFilter: "blur(30px) saturate(1.6)",
+              }}
             >
-              <item.icon
-                size={22}
-                className="text-primary mb-3 group-hover:scale-110 transition-transform duration-300"
+              {/* Gradient shine sweep */}
+              <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-white/[0.03] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none" />
+
+              {/* Top edge highlight */}
+              <div className="absolute top-0 left-4 right-4 h-[1px] bg-gradient-to-r from-transparent via-white/10 to-transparent" />
+
+              {/* Background gradient blob */}
+              <div
+                className={`absolute -bottom-16 -right-16 w-32 h-32 bg-gradient-to-br ${item.gradient} blur-[50px] rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none`}
               />
-              <h4 className="text-sm font-black mb-2 text-foreground/90 group-hover:text-foreground transition-colors">
-                {item.title}
-              </h4>
-              <p className="text-xs text-muted-foreground leading-relaxed">
-                {item.desc}
-              </p>
+
+              {/* Step number */}
+              <div className="absolute top-4 right-5 text-[10px] font-mono font-black text-white/[0.06] text-5xl pointer-events-none group-hover:text-white/[0.08] transition-colors duration-500">
+                {item.num}
+              </div>
+
+              <div className="relative z-10">
+                <div className="w-10 h-10 rounded-xl bg-primary/10 border border-primary/10 flex items-center justify-center mb-4 group-hover:bg-primary/15 group-hover:scale-110 group-hover:border-primary/20 transition-all duration-500">
+                  <item.icon size={20} className="text-primary" />
+                </div>
+                <h4 className="text-sm font-black mb-2 text-foreground/90 group-hover:text-foreground transition-colors duration-300">
+                  {item.title}
+                </h4>
+                <p className="text-xs text-muted-foreground leading-relaxed">
+                  {item.desc}
+                </p>
+              </div>
             </motion.div>
           ))}
         </div>

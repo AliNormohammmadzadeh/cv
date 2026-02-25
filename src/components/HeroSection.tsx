@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { ArrowDown, Github, Linkedin, Twitter } from "lucide-react";
+import { Github, Linkedin, Twitter } from "lucide-react";
 import { useState } from "react";
 import MagneticButton from "./ui/MagneticButton";
 
@@ -119,9 +119,19 @@ const HeroSection = () => {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 1.2, duration: 0.6 }}
-          className="absolute bottom-12 left-1/2 -translate-x-1/2"
+          className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2"
         >
-          <ArrowDown size={20} className="text-muted-foreground animate-bounce" />
+          <div className="w-[26px] h-[42px] rounded-full border-2 border-primary/30 flex items-start justify-center pt-2 relative overflow-hidden group hover:border-primary/50 transition-colors duration-500">
+            <motion.div
+              className="w-[5px] h-[5px] rounded-full bg-primary shadow-[0_0_8px_hsl(265_85%_65%/0.6)]"
+              animate={{ y: [0, 18, 0], opacity: [1, 0.4, 1] }}
+              transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+            />
+            <div className="absolute inset-0 bg-gradient-to-b from-primary/5 to-transparent rounded-full pointer-events-none" />
+          </div>
+          <span className="text-[9px] font-mono text-muted-foreground/40 uppercase tracking-[0.25em]">
+            scroll
+          </span>
         </motion.div>
       </div>
     </section>
