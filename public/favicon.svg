@@ -5,12 +5,7 @@
       <stop offset="50%" stop-color="#c084fc"/>
       <stop offset="100%" stop-color="#e879f9"/>
     </linearGradient>
-    <linearGradient id="dot" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#c084fc"/>
-      <stop offset="100%" stop-color="#e879f9"/>
-    </linearGradient>
   </defs>
   <rect width="32" height="32" rx="7" fill="#0c0a15"/>
-  <path d="M16 6L7.5 26h4l1.5-4.5h6L20.5 26h4L16 6zm0 7l2.2 6h-4.4L16 13z" fill="url(#g)"/>
-  <circle cx="16" cy="4.5" r="1.8" fill="url(#dot)" opacity="0.9"/>
+  <path fill-rule="evenodd" d="M16 7L8 25h3.8l1.6-4.2h5.2L20.2 25H24L16 7zm0 5.8l1.8 5h-3.6l1.8-5z" fill="url(#g)"/>
 </svg>

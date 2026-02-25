@@ -129,11 +129,8 @@ const MetricCard = ({ m }: { m: (typeof metrics)[0] }) => {
               exit={{ opacity: 0, scale: 1.3, filter: "blur(4px)" }}
               transition={{ duration: 0.35, ease: "easeOut" }}
             >
-              <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg glass border border-white/10">
-                <Eye size={12} className="text-primary/60" />
-                <span className="text-[9px] font-mono text-primary/50 uppercase tracking-wider font-bold">
-                  hover
-                </span>
+              <div className="flex items-center justify-center w-8 h-8 rounded-lg glass border border-white/10">
+                <Eye size={14} className="text-primary/50" />
               </div>
             </motion.div>
           )}
