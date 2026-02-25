@@ -99,7 +99,7 @@ const HeroSection = () => {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.7, duration: 0.6 }}
-          className="flex items-center justify-center gap-4 sm:gap-5"
+          className="flex items-center justify-center gap-4 sm:gap-5 mb-10"
         >
           {socialLinks.map(({ icon: Icon, href, label }) => (
             <a
@@ -119,7 +119,7 @@ const HeroSection = () => {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 1.2, duration: 0.6 }}
-          className="absolute bottom-6 left-1/2 -translate-x-1/2"
+          className="flex justify-center"
         >
           <a
             href="#skills"
