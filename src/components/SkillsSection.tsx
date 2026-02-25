@@ -20,7 +20,7 @@ const skillCategories = [
   {
     icon: Brain,
     title: "AI & LLMs",
-    skills: ["OpenAI", "Gemini", "Anthropic", "Ollama", "Hugging Face", "LangChain", "LlamaIndex"],
+    skills: ["OpenAI", "Gemini", "Anthropic", "Ollama", "Hugging Face", "LangChain", "LlamaIndex", "n8n"],
   },
   {
     icon: Cloud,
