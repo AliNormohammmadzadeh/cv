@@ -154,6 +154,39 @@
   }
 
   /* ═══════════════════════════════════════════
+     SMOOTH, THEMED SCROLLBARS
+     ═══════════════════════════════════════════ */
+  .nice-scroll {
+    scroll-behavior: smooth;
+    scrollbar-width: thin;
+    scrollbar-color: hsl(var(--primary) / 0.4) transparent;
+    overscroll-behavior: contain;
+  }
+  .nice-scroll::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+  .nice-scroll::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  .nice-scroll::-webkit-scrollbar-thumb {
+    background: hsl(var(--primary) / 0.35);
+    border-radius: 9999px;
+    border: 2px solid transparent;
+    background-clip: padding-box;
+    transition: background 0.2s ease;
+  }
+  .nice-scroll::-webkit-scrollbar-thumb:hover {
+    background: hsl(var(--primary) / 0.65);
+    background-clip: padding-box;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .nice-scroll {
+      scroll-behavior: auto;
+    }
+  }
+
+  /* ═══════════════════════════════════════════
      KINETIC TYPOGRAPHY
      ═══════════════════════════════════════════ */
   .kinetic-text {

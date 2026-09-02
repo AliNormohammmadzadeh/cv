@@ -1,27 +1,7 @@
-import { ExternalLink, Github, Sparkles, Zap } from "lucide-react";
+import { Sparkles, Zap } from "lucide-react";
 import { motion } from "framer-motion";
 import { useState } from "react";
-
-const projects = [
-  {
-    title: "Wikija",
-    role: "Software Engineer",
-    desc: "Developed a large-scale data aggregation platform utilizing advanced crawling bots and scrapers to consolidate accommodation data for optimized decision making.",
-    tags: ["NestJS", "Python", "FastAPI", "Crawling", "PostgreSQL", "Elasticsearch", "Redis", "Kafka"],
-  },
-  {
-    title: "Intelika AI",
-    role: "Backend Developer",
-    desc: "Architected a real-time AI workspace platform featuring multi-user collaboration and intelligent chatbots. Implemented microservices and RAG-based AI features.",
-    tags: ["Microservices", "NestJS", "WebSocket", "PostgreSQL", "MongoDB", "Redis", "Cloudflare Vector", "RAG", "gRPC"],
-  },
-  {
-    title: "License Market",
-    role: "Backend Developer",
-    desc: "Built an automated account procurement platform with microservices architecture, streamlining operations for operators and accelerating transaction speeds.",
-    tags: ["Microservices", "NestJS", "RabbitMQ", "PostgreSQL", "Prisma", "Redis"],
-  },
-];
+import { projects } from "@/data/datasets";
 
 const ProjectsSection = () => {
   const [isFlipped, setIsFlipped] = useState(false);
@@ -71,7 +51,7 @@ const ProjectsSection = () => {
                   </div>
 
                   <p className="text-sm sm:text-base text-muted-foreground/90 mb-6 leading-relaxed font-medium">
-                    {project.desc}
+                    {project.description}
                   </p>
 
                   <div className="flex flex-wrap gap-2 mb-2">

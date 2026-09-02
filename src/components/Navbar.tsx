@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X, Brain } from "lucide-react";
+import { Menu, X, Brain, Database } from "lucide-react";
 import MagneticButton from "./ui/MagneticButton";
 
 const links = [
@@ -74,6 +75,13 @@ const Navbar = () => {
               {links.map((link) => (
                 <NavLink key={link.label} label={link.label} href={link.href} />
               ))}
+              <Link
+                to="/data"
+                className="relative inline-flex items-center gap-1.5 text-sm font-semibold text-muted-foreground hover:text-orange-300 transition-colors duration-300 py-1"
+              >
+                <Database size={15} />
+                Data
+              </Link>
             </div>
 
             {/* Right side */}
@@ -120,6 +128,20 @@ const Navbar = () => {
                   {link.label}
                 </motion.a>
               ))}
+              <motion.div
+                initial={{ opacity: 0, x: -15 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: links.length * 0.06 }}
+              >
+                <Link
+                  to="/data"
+                  onClick={() => setMobileOpen(false)}
+                  className="inline-flex items-center gap-2 text-lg text-muted-foreground hover:text-orange-300 transition-colors font-semibold"
+                >
+                  <Database size={18} />
+                  Data
+                </Link>
+              </motion.div>
               <a
                 href="#contact"
                 onClick={() => setMobileOpen(false)}

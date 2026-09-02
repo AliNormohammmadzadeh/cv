@@ -12,92 +12,30 @@ import {
   TrendingUp,
   Cpu,
   Eye,
+  type LucideIcon,
 } from "lucide-react";
+import {
+  principles,
+  metrics,
+  buildingNext,
+  type IconKey,
+  type Metric,
+} from "@/data/datasets";
 
-const principles = [
-  {
-    icon: Brain,
-    title: "AI-Native Architecture",
-    subtitle: "From LLMs to Production",
-    desc: "I design AI systems that go beyond prototypes. RAG pipelines, LLM orchestration, vector search, and intelligent agents — built for reliability at scale.",
-    highlights: [
-      "RAG & Vector Search",
-      "LLM Orchestration",
-      "AI Agent Systems",
-      "Production Pipelines",
-    ],
-    accent: "from-purple-500/20 to-blue-500/20",
-    iconBg: "bg-purple-500/15",
-    borderAccent: "group-hover:border-purple-500/30",
-  },
-  {
-    icon: Layers,
-    title: "Systems That Scale",
-    subtitle: "Microservices & Beyond",
-    desc: "Event-driven microservices, distributed systems, and infrastructure designed to handle millions of requests. I think in throughput, latency, and fault tolerance.",
-    highlights: [
-      "Event-Driven Design",
-      "Distributed Systems",
-      "High Availability",
-      "Performance Tuning",
-    ],
-    accent: "from-blue-500/20 to-cyan-500/20",
-    iconBg: "bg-blue-500/15",
-    borderAccent: "group-hover:border-blue-500/30",
-  },
-  {
-    icon: Rocket,
-    title: "Ship Fast, Ship Right",
-    subtitle: "Velocity Without Compromise",
-    desc: "I move fast without breaking things. CI/CD pipelines, automated testing, and clean architecture that lets teams iterate quickly while maintaining quality.",
-    highlights: [
-      "CI/CD Automation",
-      "Clean Architecture",
-      "Rapid Prototyping",
-      "Developer Experience",
-    ],
-    accent: "from-pink-500/20 to-orange-500/20",
-    iconBg: "bg-pink-500/15",
-    borderAccent: "group-hover:border-pink-500/30",
-  },
-];
+const iconMap: Partial<Record<IconKey, LucideIcon>> = {
+  Brain,
+  Layers,
+  Rocket,
+  Shield,
+  Workflow,
+  Sparkles,
+  TrendingUp,
+  Cpu,
+};
 
-const metrics = [
-  { value: "3+", label: "Production AI Systems", icon: Cpu },
-  { value: "10+", label: "Microservices Built", icon: Layers },
-  { value: "RAG", label: "Pipeline Specialist", icon: Brain },
-  { value: "Full", label: "Stack Coverage", icon: TrendingUp },
-];
-
-const buildingNext = [
-  {
-    icon: Workflow,
-    title: "AI Workflow Automation",
-    desc: "Intelligent automation pipelines with n8n and custom AI agents that eliminate repetitive engineering tasks.",
-    num: "01",
-    gradient: "from-purple-500/10 via-transparent to-blue-500/10",
-    glowColor: "group-hover:shadow-purple-500/10",
-  },
-  {
-    icon: Sparkles,
-    title: "Developer-First AI Tools",
-    desc: "API-first developer tools that integrate LLMs into existing workflows — amplifying engineers, not replacing them.",
-    num: "02",
-    gradient: "from-blue-500/10 via-transparent to-cyan-500/10",
-    glowColor: "group-hover:shadow-blue-500/10",
-  },
-  {
-    icon: Shield,
-    title: "Enterprise-Grade RAG",
-    desc: "Production RAG systems with advanced retrieval, re-ranking, and guardrails for enterprise use cases.",
-    num: "03",
-    gradient: "from-pink-500/10 via-transparent to-purple-500/10",
-    glowColor: "group-hover:shadow-pink-500/10",
-  },
-];
-
-const MetricCard = ({ m }: { m: (typeof metrics)[0] }) => {
+const MetricCard = ({ m }: { m: Metric }) => {
   const [revealed, setRevealed] = useState(false);
+  const Icon = iconMap[m.iconKey] ?? Cpu;
 
   return (
     <div
@@ -107,7 +45,7 @@ const MetricCard = ({ m }: { m: (typeof metrics)[0] }) => {
     >
       <div className="flex justify-center mb-3">
         <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center transition-transform duration-300 hover:scale-110">
-          <m.icon size={20} className="text-primary" />
+          <Icon size={20} className="text-primary" />
         </div>
       </div>
       <div className="relative inline-flex items-center justify-center min-w-[4.5rem] min-h-[2.5rem]">
@@ -168,7 +106,9 @@ const VisionSection = () => {
 
         {/* Core Principles */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-5 sm:gap-6 mb-12 sm:mb-16">
-          {principles.map((p, i) => (
+          {principles.map((p, i) => {
+            const PrincipleIcon = iconMap[p.iconKey] ?? Brain;
+            return (
             <motion.div
               key={p.title}
               initial={{ opacity: 0, y: 24 }}
@@ -181,7 +121,7 @@ const VisionSection = () => {
               <div
                 className={`w-12 h-12 rounded-xl ${p.iconBg} flex items-center justify-center mb-5 group-hover:scale-110 transition-transform duration-500`}
               >
-                <p.icon size={24} className="text-primary" />
+                <PrincipleIcon size={24} className="text-primary" />
               </div>
 
               <p className="text-[10px] font-mono text-primary/70 uppercase tracking-[0.2em] font-bold mb-1">
@@ -191,7 +131,7 @@ const VisionSection = () => {
                 {p.title}
               </h3>
               <p className="text-sm text-muted-foreground leading-relaxed mb-5 flex-1">
-                {p.desc}
+                {p.description}
               </p>
 
               <div className="flex flex-wrap gap-1.5">
@@ -210,7 +150,8 @@ const VisionSection = () => {
                 className={`absolute -bottom-20 -right-20 w-40 h-40 bg-gradient-to-br ${p.accent} blur-[60px] rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none`}
               />
             </motion.div>
-          ))}
+            );
+          })}
         </div>
 
         {/* Metrics Bar */}
@@ -246,7 +187,9 @@ const VisionSection = () => {
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-5">
-          {buildingNext.map((item, i) => (
+          {buildingNext.map((item, i) => {
+            const ItemIcon = iconMap[item.iconKey] ?? Workflow;
+            return (
             <motion.div
               key={item.title}
               initial={{ opacity: 0, y: 16 }}
@@ -279,17 +222,18 @@ const VisionSection = () => {
 
               <div className="relative z-10">
                 <div className="w-10 h-10 rounded-xl bg-primary/10 border border-primary/10 flex items-center justify-center mb-4 group-hover:bg-primary/15 group-hover:scale-110 group-hover:border-primary/20 transition-all duration-500">
-                  <item.icon size={20} className="text-primary" />
+                  <ItemIcon size={20} className="text-primary" />
                 </div>
                 <h4 className="text-sm font-black mb-2 text-foreground/90 group-hover:text-foreground transition-colors duration-300">
                   {item.title}
                 </h4>
                 <p className="text-xs text-muted-foreground leading-relaxed">
-                  {item.desc}
+                  {item.description}
                 </p>
               </div>
             </motion.div>
-          ))}
+            );
+          })}
         </div>
       </div>
     </section>

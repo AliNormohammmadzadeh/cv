@@ -1,13 +1,16 @@
 import { motion } from "framer-motion";
-import { Github, Linkedin, Twitter, ChevronDown } from "lucide-react";
+import { Github, Linkedin, Twitter, ChevronDown, type LucideIcon } from "lucide-react";
 import { useState } from "react";
 import MagneticButton from "./ui/MagneticButton";
+import { profile, type IconKey } from "@/data/datasets";
 
-const socialLinks = [
-  { icon: Github, href: "https://github.com/AliNormohammmadzadeh", label: "GitHub" },
-  { icon: Linkedin, href: "https://www.linkedin.com/in/ali-normohammadzadeh-77495822a/", label: "LinkedIn" },
-  { icon: Twitter, href: "https://x.com/tebalen", label: "X / Twitter" },
-];
+const iconMap: Partial<Record<IconKey, LucideIcon>> = {
+  Github,
+  Linkedin,
+  Twitter,
+};
+
+const socialLinks = profile.socials;
 
 const HeroSection = () => {
   const [isHovered, setIsHovered] = useState(false);
@@ -101,18 +104,21 @@ const HeroSection = () => {
           transition={{ delay: 0.7, duration: 0.6 }}
           className="flex items-center justify-center gap-4 sm:gap-5 mb-10"
         >
-          {socialLinks.map(({ icon: Icon, href, label }) => (
-            <a
-              key={label}
-              href={href}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="p-3 rounded-xl glass text-foreground/80 hover:text-primary hover:border-primary/30 hover:scale-110 transition-all duration-300"
-              aria-label={label}
-            >
-              <Icon size={20} />
-            </a>
-          ))}
+          {socialLinks.map(({ iconKey, href, label }) => {
+            const Icon = iconMap[iconKey] ?? Github;
+            return (
+              <a
+                key={label}
+                href={href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="p-3 rounded-xl glass text-foreground/80 hover:text-primary hover:border-primary/30 hover:scale-110 transition-all duration-300"
+                aria-label={label}
+              >
+                <Icon size={20} />
+              </a>
+            );
+          })}
         </motion.div>
 
         <motion.div
