@@ -13,6 +13,7 @@ import {
   Square,
 } from "lucide-react";
 import { datasets, type Dataset } from "@/data/datasets";
+import { DatasetView } from "@/components/DataRecordView";
 import {
   FORMATS,
   buildFilename,
@@ -26,6 +27,8 @@ import {
   serialize,
   type ExportFormat,
 } from "@/lib/dataExport";
+
+type ViewMode = "formatted" | "raw";
 
 const groups = Array.from(new Set(datasets.map((d) => d.group)));
 
@@ -43,6 +46,7 @@ const DataExplorer = () => {
     () => new Set(datasets.map((d) => d.id)),
   );
   const [format, setFormat] = useState<ExportFormat>("json");
+  const [viewMode, setViewMode] = useState<ViewMode>("formatted");
   const [copied, setCopied] = useState(false);
 
   const selectedDatasets = useMemo<Dataset[]>(
@@ -100,6 +104,13 @@ const DataExplorer = () => {
     toast.success("Download started", { description: filename });
   };
 
+  const handleDownloadDatasetJson = (dataset: Dataset) => {
+    const { content: fileContent, mimeType } = serialize([dataset], "json");
+    const filename = buildFilename([dataset], "json");
+    downloadContent(filename, fileContent, mimeType);
+    toast.success("Download started", { description: filename });
+  };
+
   const empty = selectedDatasets.length === 0;
 
   return (
@@ -151,7 +162,7 @@ const DataExplorer = () => {
 
         <div className="grid lg:grid-cols-[300px_1fr] gap-6">
           {/* Dataset picker */}
-          <aside className="glass-strong rounded-2xl p-5 h-fit">
+          <aside className="glass-strong rounded-2xl p-5 lg:sticky lg:top-6 lg:max-h-[calc(100vh-3rem)] lg:overflow-y-auto nice-scroll">
             <div className="flex items-center justify-between mb-4">
               <h2 className="text-sm font-black uppercase tracking-wider flex items-center gap-2">
                 <Layers size={16} className="text-primary" />
@@ -280,11 +291,35 @@ const DataExplorer = () => {
             </div>
 
             {/* Preview */}
-            <div className="flex items-center justify-between mb-2">
+            <div className="flex flex-wrap items-center justify-between gap-2 mb-2">
               <h3 className="text-xs font-mono uppercase tracking-widest text-muted-foreground">
                 Preview
               </h3>
-              <span className="text-[11px] text-muted-foreground tabular-nums">{stats.size}</span>
+              <div className="flex items-center gap-2">
+                <div className="inline-flex rounded-lg bg-white/5 border border-white/10 p-0.5">
+                  <button
+                    onClick={() => setViewMode("formatted")}
+                    className={`text-[11px] font-bold px-2.5 py-1 rounded-md transition-colors ${
+                      viewMode === "formatted"
+                        ? "bg-primary text-primary-foreground"
+                        : "text-muted-foreground hover:text-foreground"
+                    }`}
+                  >
+                    Formatted
+                  </button>
+                  <button
+                    onClick={() => setViewMode("raw")}
+                    className={`text-[11px] font-bold px-2.5 py-1 rounded-md transition-colors ${
+                      viewMode === "raw"
+                        ? "bg-primary text-primary-foreground"
+                        : "text-muted-foreground hover:text-foreground"
+                    }`}
+                  >
+                    Raw {activeFormat.label}
+                  </button>
+                </div>
+                <span className="text-[11px] text-muted-foreground tabular-nums">{stats.size}</span>
+              </div>
             </div>
             {empty ? (
               <div className="flex-1 min-h-[280px] flex items-center justify-center rounded-xl bg-black/30 border border-white/10 text-center px-6">
@@ -292,8 +327,18 @@ const DataExplorer = () => {
                   Select at least one dataset on the left to preview and export your data.
                 </p>
               </div>
+            ) : viewMode === "formatted" ? (
+              <div className="flex-1 min-h-[280px] max-h-[60vh] overflow-auto nice-scroll rounded-xl bg-black/40 border border-white/10 p-3 space-y-3">
+                {selectedDatasets.map((dataset) => (
+                  <DatasetView
+                    key={dataset.id}
+                    dataset={dataset}
+                    onDownloadJson={handleDownloadDatasetJson}
+                  />
+                ))}
+              </div>
             ) : (
-              <pre className="flex-1 min-h-[280px] max-h-[60vh] overflow-auto rounded-xl bg-black/40 border border-white/10 p-4 text-xs leading-relaxed font-mono text-foreground/90 whitespace-pre">
+              <pre className="flex-1 min-h-[280px] max-h-[60vh] overflow-auto nice-scroll rounded-xl bg-black/40 border border-white/10 p-4 text-xs leading-relaxed font-mono text-foreground/90 whitespace-pre">
                 <code>{content}</code>
               </pre>
             )}
