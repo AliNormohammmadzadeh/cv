@@ -1,46 +1,24 @@
 import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
-import { Code2, Server, Cloud, Database, Brain, GitBranch } from "lucide-react";
+import { Code2, Server, Cloud, Database, Brain, GitBranch, type LucideIcon } from "lucide-react";
+import { skillCategories, type IconKey, type SkillCategory } from "@/data/datasets";
 
-const skillCategories = [
-  {
-    icon: Server,
-    title: "Backend",
-    skills: ["Node.js", "NestJS", "Python", "GO" , "FastAPI", "REST", "GraphQL", "gRPC"],
-  },
-  {
-    icon: Database,
-    title: "Vector DBs & RAG",
-    skills: ["Pinecone", "CFVector", "Weaviate", "PGVector", "Embeddings", "Semantic Search"],
-  },
-  {
-    icon: Code2,
-    title: "Frontend",
-    skills: ["React", "TypeScript", "Next.js", "Tailwind CSS", "Framer Motion", "Vite"],
-  },
-  {
-    icon: Brain,
-    title: "AI & LLMs",
-    skills: ["OpenAI", "Gemini", "Anthropic", "Ollama", "Hugging Face", "LangChain", "LlamaIndex", "n8n"],
-  },
-  {
-    icon: Cloud,
-    title: "Cloud & DevOps",
-    skills: ["AWS", "Docker", "Kubernetes", "CI/CD", "Vercel", "Nginx",  "Git"],
-  },
-  {
-    icon: GitBranch,
-    title: "DBs & Tools",
-    skills: ["PostgreSQL", "MongoDB", "Redis", "Kafka", "RabbitMQ", "Prisma", "ClickHouse"],
-  },
-];
+const iconMap: Partial<Record<IconKey, LucideIcon>> = {
+  Server,
+  Database,
+  Code2,
+  Brain,
+  Cloud,
+  GitBranch,
+};
 
 const SkillCard = ({
   category,
   index,
 }: {
-  category: (typeof skillCategories)[0];
+  category: SkillCategory;
   index: number;
 }) => {
+  const Icon = iconMap[category.iconKey] ?? Server;
   const x = useMotionValue(0);
   const y = useMotionValue(0);
 
@@ -77,7 +55,7 @@ const SkillCard = ({
           style={{ translateZ: 60 }}
           className="w-12 h-12 rounded-xl bg-primary/15 flex items-center justify-center mb-5 group-hover:bg-primary/25 group-hover:scale-110 group-hover:rotate-6 transition-[background-color,transform] duration-500"
         >
-          <category.icon size={24} className="text-primary" />
+          <Icon size={24} className="text-primary" />
         </motion.div>
 
         <motion.h3

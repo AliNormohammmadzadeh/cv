@@ -2,6 +2,7 @@ import { Send, Mail, MessageSquare, SendHorizontal, Zap } from "lucide-react";
 import MagneticButton from "./ui/MagneticButton";
 import { useState } from "react";
 import { motion } from "framer-motion";
+import { profile } from "@/data/datasets";
 
 const ContactSection = () => {
   const [formData, setFormData] = useState({ name: "", email: "", message: "" });
@@ -17,7 +18,7 @@ const ContactSection = () => {
     
     const subject = encodeURIComponent(`Portfolio Inquiry from ${formData.name}`);
     const body = encodeURIComponent(`Name: ${formData.name}\nEmail: ${formData.email}\n\nMessage:\n${formData.message}`);
-    window.location.href = `mailto:alinormohammadzadeh2080@gmail.com?subject=${subject}&body=${body}`;
+    window.location.href = `mailto:${profile.email}?subject=${subject}&body=${body}`;
     
     setIsSubmitting(false);
     setIsSuccess(true);
@@ -59,10 +60,10 @@ const ContactSection = () => {
                     Email Me
                   </p>
                   <a
-                    href="mailto:alinormohammadzadeh2080@gmail.com"
+                    href={`mailto:${profile.email}`}
                     className="text-sm font-semibold hover:text-primary transition-colors"
                   >
-                    alinormohammadzadeh2080@gmail.com
+                    {profile.email}
                   </a>
                 </div>
               </div>
@@ -75,12 +76,12 @@ const ContactSection = () => {
                     Telegram
                   </p>
                   <a
-                    href="https://t.me/Alind2n"
+                    href={profile.telegramHref}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="text-sm font-semibold hover:text-primary transition-colors"
                   >
-                    @Alind2n
+                    {profile.telegram}
                   </a>
                 </div>
               </div>
@@ -92,7 +93,7 @@ const ContactSection = () => {
                   <p className="text-xs font-mono text-muted-foreground uppercase tracking-wider">
                     Let's Chat
                   </p>
-                  <p className="text-lg font-semibold">Available for new projects</p>
+                  <p className="text-lg font-semibold">{profile.availability}</p>
                 </div>
               </div>
             </div>
